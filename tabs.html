@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>选项卡</title>
+	<link rel="stylesheet" href="ionic/css/ionic.css">
+	<script src="ionic/js/ionic.bundle.min.js"></script>
+</head>
+<body ng-controller="myCtrl">
+
+	<ion-tabs class="tabs-positive">
+
+  <ion-tab title="首页" icon-on="ion-arrow-down-a" icon-off="ion-arrow-down-a" ng-controller="you" on-deselect="show()">
+    <!-- 标签 1 内容 -->
+    <ion-header-bar align-title="center" class="bar-positive">
+	  <div class="buttons">
+	    <button class="button icon ion-navicon" ng-click="doSomething()"></button>
+	  </div>
+	  <h1 class="title">首页!</h1>
+	  <div class="buttons">
+	    <button class="button">右侧按钮</button>
+	  </div>
+	</ion-header-bar>
+    <ion-content>
+	111111111111
+		<ul>
+			<li ng-repeat="i in age track by $index">{{i}}</li>
+		</ul>
+		<button ng-click="add()">点我</button>
+    </ion-content>
+  </ion-tab>
+
+  <ion-tab title="关于" icon-on="ion-ionic" icon-off="ion-ionic">
+    <!-- 标签 2 内容 -->
+    <ion-header-bar align-title="center" class="bar-positive">
+	  <div class="buttons">
+	    <button class="button icon ion-navicon" ng-click="doSomething()"></button>
+	  </div>
+	  <h1 class="title">关于!</h1>
+	  <div class="buttons">
+	    <button class="button">右侧按钮</button>
+	  </div>
+	</ion-header-bar>
+    <ion-content>
+	222222222222222
+    </ion-content>
+  </ion-tab>
+
+  <ion-tab title="设置" icon-on="ion-plus-circled" icon-off="ion-plus-circled">
+    <!-- 标签 3 内容 -->
+    <ion-header-bar align-title="center" class="bar-positive">
+	  <div class="buttons">
+	    <button class="button icon ion-navicon" ng-click="doSomething()"></button>
+	  </div>
+	  <h1 class="title">设置!</h1>
+	  <div class="buttons">
+	    <button class="button">右侧按钮</button>
+	  </div>
+	</ion-header-bar>
+    <ion-content>
+	333333333333333
+    </ion-content>
+  </ion-tab>
+
+</ion-tabs>
+
+<script>
+	var app=angular.module('app',['ionic']);
+		app.controller('myCtrl',function($scope,$http){
+
+		})
+
+		app.controller('you',function($scope,$http){
+			$scope.age=[1,2,3];
+			$scope.add=function(){
+				this.age.push('dd')
+			}
+			$scope.show=function(){
+				console.log(222)
+			}
+		})
+</script>
+</body>
+</html>

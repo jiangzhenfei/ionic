@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>navigation</title>
+	<link rel="stylesheet" href="ionic/css/ionic.css">
+	<script src="ionic/js/ionic.bundle.min.js"></script>
+	<script src="controller/controller.js"></script>
+</head>
+<style>
+	
+</style>
+<body>
+	<ion-nav-bar class="bar-positive"></ion-nav-bar>
+	<ion-nav-view animation="slide-left-right" name="index">
+  	<!-- 中间内容 -->
+	</ion-nav-view>
+	
+  
+	<script>
+		var app = angular.module('myApp', ['ionic','appCtrl']);
+		app.config(function($stateProvider,$urlRouterProvider) {
+		  $stateProvider
+		  .state('index', {
+		    url: '/index',
+		    views: {
+		      'index': {
+		        templateUrl: 'page/index.html'
+		      
+		      }
+		    }		    
+		   
+		   
+		  })
+		  .state('goods', {
+		    url: '/goods',
+		    views: {
+		      'index': {
+		        templateUrl: 'page/goods.html',
+		      	controller:'goodsCtrl'
+		      }
+		    }			    
+		   
+		 
+		   
+		  })
+		  .state('index.home',{
+		  	cache:true,
+		  	url:'/home',
+		  	views: {
+		      'home': {
+		        templateUrl: 'page/home.html',
+		        controller:'HomeCtrl'
+		      }
+		    }
+		  })
+		   .state('index.class',{
+		  	url:'/class',
+		  	views: {
+		      'class': {
+		        templateUrl: 'page/class.html'
+		      }
+		    }
+		  })
+		  .state('index.music', {
+		    url: '/music',
+		    views: {
+		      'music': {
+		         templateUrl: 'page/music.html'
+		      }
+		    }
+		  });
+		  $urlRouterProvider.otherwise("/index/home");
+		});
+		
+
+		
+	</script>
+	
+	
+</body>
+</html>
+
+
+
+
+

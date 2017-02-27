@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="ionic/css/ionic.css">
+	<!-- <script src="angular/angular.js"></script> -->
+	<script src="ionic/js/ionic.bundle.min.js"></script>
+	<style>
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		.img{
+			height: 150px;
+			width: 100%;
+			display: block;
+		}
+	</style>
+</head>
+<body ng-controller="myCtrl">
+<ion-header-bar align-title="center" class="bar-positive">
+  <div class="buttons">
+    <button class="button icon ion-navicon" ng-click="doSomething()"></button>
+  </div>
+  <h1 class="title">Title!</h1>
+  <div class="buttons">
+    <button class="button">右侧按钮</button>
+  </div>
+</ion-header-bar>
+
+<ion-content ng-controller="MyController">
+	<ion-refresher
+    	pulling-text="下拉刷新..."
+    	on-refresh="doRefresh()">
+ 	</ion-refresher>
+  	<ion-slide-box does-continue="true" auto-play="true" slide-interval="4000">
+		<ion-slide ng-repeat="banner in banners">
+		 	<img class="img" ng-src="{{banner.goodsBenUrl|imgFilter}}">
+		</ion-slide>
+	</ion-slide-box>
+	<ion-list>
+    	<ion-item ng-repeat="item in items">{{item.className}}</ion-item>
+  	</ion-list>
+</ion-content>
+
+<ion-footer-bar align-title="left" class="bar-assertive" controller="you">
+  <div class="buttons">
+    <button class="button">左侧按钮</button>
+  </div>
+  <h1 class="title">Title!</h1>
+  <div class="buttons" ng-click="doSomething()">
+    <button class="button">右侧按钮</button>
+  </div>
+</ion-footer-bar>
+
+	<script>
+		var app=angular.module('app',['ionic']);
+		app.controller('myCtrl',function($scope,$http,$ionicSlideBoxDelegate){
+			$scope.doSomething=function(){
+				console.log(1)
+			}
+			$http({
+				method:'jsonp',
+				url:'http://datainfo.duapp.com/shopdata/getBanner.php?callback=JSON_CALLBACK'
+			}).then(function(e) {
+				$scope.banners = e.data;
+				console.info(e.data[0])
+				//刷新轮播
+				$ionicSlideBoxDelegate.update();	
+			})
+
+
+		})
+		app.controller('MyController',function($scope,$http){
+			$http({
+				method:'jsonp',
+				url:'http://datainfo.duapp.com/shopdata/getGoods.php?callback=JSON_CALLBACK'
+			}).then(function(e) {
+				$scope.items=e.data;
+			})
+			//实现下拉刷新
+			$scope.doRefresh = function() {
+			   $http({
+				method:'jsonp',
+				url:'http://datainfo.duapp.com/shopdata/getGoods.php?callback=JSON_CALLBACK'
+			}).then(function(e) {
+				$scope.items=e.data;
+				console.log('刷新成功')
+				$scope.$broadcast('scroll.refreshComplete');
+			})
+			  };
+		})
+		//过滤器，用来过滤所有的图片
+		app.filter('imgFilter',function(){
+			return function(imgs){
+				return JSON.parse(imgs)[0]
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="ionic/css/ionic.css">
+	<script src="ionic/js/ionic.bundle.min.js"></script>
+</head>
+<body>
+	<ion-side-menus>
+  <!-- 中间内容 -->
+ 	 	<ion-side-menu-content ng-controller="ContentController">
+ 	 		    <ion-header-bar align-title="center" class="bar-positive">
+ 	 			  <div class="buttons">
+ 	 			    <button class="button icon ion-navicon" ng-click="doSomething()"></button>
+ 	 			  </div>
+ 	 			  <h1 class="title">关于!</h1>
+ 	 			  <div class="buttons">
+ 	 			    <button class="button">右侧按钮</button>
+ 	 			  </div>
+ 	 			</ion-header-bar>
+ 	 		    <ion-content>
+ 	 			222222222222222
+ 	 			<button ng-click="toggleLeft()">点我</button>
+ 	 		    </ion-content>
+  		</ion-side-menu-content>
+
+  <!-- 左侧菜单 -->
+  		<ion-side-menu side="left" width="myWidthValue + 100">
+  			<ul>
+  				<li>11111</li>
+  				<li>22222</li>
+  				<li>33333</li>
+  				<li>44444</li>
+  			</ul>
+ 		</ion-side-menu>
+
+  <!-- 右侧菜单 -->
+  		<ion-side-menu side="right">
+  			right
+  		</ion-side-menu>
+</ion-side-menus>
+<script>
+	var app=angular.module('app',['ionic']);
+		app.controller('ContentController',function($scope,$ionicSideMenuDelegate){
+			$scope.toggleLeft = function() {
+   				 $ionicSideMenuDelegate.toggleLeft();
+  			};
+		})
+</script>
+</body>
+</html>

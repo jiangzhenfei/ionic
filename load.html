@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="ionic/css/ionic.css">
+	<script src="ionic/js/ionic.bundle.min.js"></script>
+	<style>
+	
+	</style>
+</head>
+<body>
+	<ion-header-bar align-title="center" class="bar-positive">
+	  <div class="buttons">
+	    <button class="button icon ion-navicon" ng-click="doSomething()"></button>
+	  </div>
+	  <h1 class="title">Title!</h1>
+	  <div class="buttons">
+	    <button class="button">右侧按钮</button>
+	  </div>
+	</ion-header-bar>
+
+	<ion-content ng-controller="myCtrl">
+
+		
+			<ion-list>
+    			<ion-item ng-repeat="item in items track by $index">{{item}}</ion-item>
+  			</ion-list>
+		
+
+		<!-- 上拉刷新的操作，不要写在这个区域顶部，可能会有问题 -->
+		<ion-infinite-scroll
+   		 on-infinite="loadMore()"
+   		 distance="5%"
+   		 ng-if="moreDataCanBeLoaded()">
+ 		</ion-infinite-scroll>
+ 		<!-- 无刷新的界面提示 -->
+ 		<h3 ng-if='!moreDataCanBeLoaded()'>无新的</h3>
+	</ion-content>
+	
+	
+
+	<ion-footer-bar align-title="left" class="bar-assertive" controller="you">
+	  <div class="buttons">
+	    <button class="button">左侧按钮</button>
+	  </div>
+	  <h1 class="title">Title!</h1>
+	  <div class="buttons" ng-click="doSomething()">
+	    <button class="button">右侧按钮</button>
+	  </div>
+	</ion-footer-bar>
+	<script>
+		var app=angular.module('app',['ionic']);
+		app.controller('myCtrl',function($scope,$http){
+			$scope.flag=true;
+			$scope.items=['qq','ww','ww2',1,2,3,4,5,6,7,8,9]
+			$scope.loadMore=function(){
+				$scope.items.push('polp')
+				$scope.flag=false;//如果没有刷新，把开关关了，则刷新界面消失，无刷新的界面开启
+				console.log(111)
+			}
+			$scope.$on('stateChangeSuccess', function() {
+    		$scope.loadMore();
+  			});
+  			$scope.moreDataCanBeLoaded=function(){
+  				console.log(11)
+  				return $scope.flag
+  			}
+		})
+
+
+		
+		
+		// $.ajax({
+		// 	type:'post',
+		// 	url:response+'getProduceFreshSellingList'
+			
+		// })
+
+		function add(a){
+			var a=2;
+			p();
+		}
+
+		function p(){
+			console.log(a)
+		}
+		add(1);
+	</script>
+</body>
+</html>
